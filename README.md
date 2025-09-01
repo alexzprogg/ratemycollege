@@ -32,3 +32,16 @@ ratemycollege/
 ├─ requirements.txt # Python deps
 ├─ scrape_reddit.py # experimental data collection (✅ optional)
 └─ README.md
+
+### 4) Environment variables
+
+Create a file named `.env` in the project root (this file should **not** be committed):
+
+```dotenv
+FLASK_ENV=development
+SECRET_KEY=change-me
+SQLALCHEMY_DATABASE_URI=sqlite:///instance/database.db
+# Or, if your code expects a direct path instead of SQLAlchemy:
+# DATABASE_PATH=instance/database.db
+
+
