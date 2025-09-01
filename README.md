@@ -54,4 +54,22 @@ python -m venv .venv
 ```
 pip install -r requirements.txt
 ```
+### 3) Env variables 
+Create a file named .env in the project root (this file should not be committed):
+```
+FLASK_ENV=development
+SECRET_KEY=change-me
+SQLALCHEMY_DATABASE_URI=sqlite:///instance/database.db
+# Or, if your code expects a direct path instead of SQLAlchemy:
+# DATABASE_PATH=instance/database.db
+```
+### 4) Initialize database 
+```
+python init_db.py
+```
+### 5) Run the app (dev)
+```
+python run.py
+# Then open http://127.0.0.1:5000
+```
 
