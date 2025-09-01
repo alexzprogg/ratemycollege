@@ -1,4 +1,5 @@
 # ratemycollege
+
 A Flask-based web app that helps University of Toronto students **compare colleges** using both **structured ratings** (food, social life, study space, opportunities, clubs) and **NLP-derived themes** from student comments. The goal is to go beyond unstructured forum threads and provide **clean comparisons, trends over time, and semantic insights**.
 
 > Built for UofT colleges first; architecture is generalizable to other schools.
@@ -12,36 +13,41 @@ A Flask-based web app that helps University of Toronto students **compare colleg
 - **Trends & hashtags**: “Trending Right Now” on the homepage; top 3 hashtags per college.
 - **Side-by-side comparisons**: visualize differences across colleges (e.g., food rating over time, tag distributions).
 - **NLP pipeline**: extract themes/keywords, cluster topics, and weight recommendations by user intent.
-- **Auth-gated contributions (✅ optional)**: login/registration before submitting reviews.
+- **Auth-gated contributions (optional)**: login/registration before submitting reviews.
 - **Data quality flags**: warn when a college has limited data (e.g., “Based on few reviews”).
 
+---
+
 ## 🗂 Project Structure
+
 ratemycollege/
 ├─ app/
 │ ├─ static/ # CSS/JS/assets
-│ ├─ templates/ # Jinja2 templates: home.html, colleges.html, collegeprofile.html, etc.
-│ ├─ modules.py # Flask blueprints / app wiring (if used)
-│ ├─ nlp_utils.py # NLP helpers: tokenization, keyword/tag extraction, clustering
-│ ├─ recommenderutils.py # Ranking logic (weights, similarity, candidate model hooks)
+│ ├─ templates/ # home.html, colleges.html, collegeprofile.html, etc.
+│ ├─ modules.py # Flask blueprints / wiring (if used)
+│ ├─ nlp_utils.py # tokenization, keyword/tag extraction, clustering
+│ ├─ recommenderutils.py # ranking logic (weights, similarity, model hooks)
 │ └─ init.py # create_app() / Flask factory
-├─ data/ # seed data, sample comments (✅ optional)
+├─ data/ # seed data, sample comments (optional)
 ├─ instance/
-│ └─ database.db # SQLite DB (created at runtime; ignored by git)
-├─ init_db.py # creates/initializes the SQLite DB schema
+│ └─ database.db # SQLite DB (runtime; git-ignored)
+├─ init_db.py # initialize the SQLite schema
 ├─ run.py # dev entrypoint (python run.py)
 ├─ requirements.txt # Python deps
-├─ scrape_reddit.py # experimental data collection (✅ optional)
+├─ scrape_reddit.py # experimental data collection (optional)
 └─ README.md
 
-### 4) Environment variables
 
-Create a file named `.env` in the project root (this file should **not** be committed):
+---
 
-```dotenv
-FLASK_ENV=development
-SECRET_KEY=change-me
-SQLALCHEMY_DATABASE_URI=sqlite:///instance/database.db
-# Or, if your code expects a direct path instead of SQLAlchemy:
-# DATABASE_PATH=instance/database.db
+## 🚀 Quickstart
 
+### 1) Create a virtual environment
 
+**Windows (PowerShell):**
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+2) Install dependencies
+pip install -r requirements.txt
