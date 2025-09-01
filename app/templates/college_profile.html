@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1>{{ college.name }}</h1>
+    <p><strong>Location:</strong> {{ college.location }}</p>
+    <p>{{ college.description }}</p>
+
+    <hr>
+
+    <h2>⭐ Average Ratings</h2>
+    <ul>
+        {% if avg_ratings %}
+            {% for category, rating in avg_ratings.items() %}
+                {% if rating is not none %}
+                    <li>{{ category.capitalize() }}: {{ rating }}/10</li>
+                {% else %}
+                    <li>{{ category.capitalize() }}: Not yet rated</li>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No reviews yet.</p>
+        {% endif %}
+    </ul>
+
+    <hr>
+
+    <h2>🗣️ Student Comments</h2>
+    <ul>
+        {% for review in reviews %}
+        {% set scores = [
+            review.food | int,
+            review.social | int,
+            review.clubs | int,
+            review.study | int,
+            review.opportunities | int
+        ] %}
+        {% set nonzero_scores = scores | select('gt', 0) | list %}
+        {% if nonzero_scores %}
+            {% set avg = (nonzero_scores | sum / nonzero_scores | length) | round(1) %}
+        {% else %}
+            {% set avg = "N/A" %}
+        {% endif %}
+
+        {% set tags = review.tags | default("[]") | safe | fromjson %}
+
+        <li>
+            <p><strong>{{ review.user }}</strong> (Rating: {{ avg }}/10)</p>
+            <p>{{ review.text }}</p>
+            {% set rated = review.rated_categories | default("[]") | safe | fromjson %}
+            <ul>
+                <li>🍔 Food: {{ review.food if 'food' in rated else 'Not Rated' }}/10</li>
+                <li>🎉 Social Life: {{ review.social if 'social' in rated else 'Not Rated' }}/10</li>
+                <li>👥 Clubs: {{ review.clubs if 'clubs' in rated else 'Not Rated' }}/10</li>
+                <li>📚 Study Spaces: {{ review.study if 'study' in rated else 'Not Rated' }}/10</li>
+                <li>🚀 Opportunities: {{ review.opportunities if 'opportunities' in rated else 'Not Rated' }}/10</li>
+            </ul>
+
+            {% if tags %}
+            <div class="hashtag-row">
+                {% for tag in tags %}
+                    <span class="hashtag">#{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% if not reviews %}
+        <p>No reviews yet. Be the first to share your experience!</p>
+    {% endif %}
+<hr>
+
+<h2>✍️ Submit Your Review</h2>
+<button id="openModalBtn">Leave a Review</button>
+
+<!-- Modal -->
+<div id="reviewModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form id="reviewForm" method="POST">
+
+      <label for="user">Your Name:</label><br>
+      <input type="text" id="user" name="user" required><br><br>
+
+      <label><strong>What do you want to talk about?</strong></label><br>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="categories" value="food"> Food</label>
+        <label><input type="checkbox" name="categories" value="social"> Social Life</label>
+        <label><input type="checkbox" name="categories" value="clubs"> Clubs</label>
+        <label><input type="checkbox" name="categories" value="study"> Study Spaces</label>
+        <label><input type="checkbox" name="categories" value="opportunities"> Opportunities</label>
+      </div>
+
+      <br>
+      <label for="text">Comment (max 250 words):</label><br>
+      <textarea id="text" name="text" maxlength="2000" required></textarea><br><br>
+
+      <div id="ratingInputs"></div>
+
+      <div>
+        <strong>Suggested Tags:</strong>
+        <div id="tagContainer"></div>
+        <input type="text" id="customTagInput" placeholder="Add a tag and press Enter">
+      </div><br>
+
+      <button type="button" id="submitReviewBtn">Submit Review</button>
+    </form>
+  </div>
+</div>
+
+</div>
+<script src="{{ url_for('static', filename='JS/review_modal.js') }}"></script>
+{% endblock %}

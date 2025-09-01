@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h1 style="margin-top: 30px;">🏫 Choose a College</h1>
+    <p>Click on a college to explore student reviews and details.</p>
+
+    <div class="college-card-grid">
+        {% for college in colleges %}
+            <div class="college-card">
+                <a href="/colleges/{{ college.id }}" class="college-tile">
+                    <strong>{{ college.name }}</strong><br>
+                    {% if college.hashtags %}
+                        <div class="hashtags">
+                            {% for tag in college.hashtags %}
+                                <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+
+{# This template displays a grid of colleges with their names and hashtags. 
+    Let me know if you want to:
+
+Show average rating stars under each college
+
+Sort by top-rated or trending
+
+Add filters (e.g. “Show colleges with high study spaces”)
+#}

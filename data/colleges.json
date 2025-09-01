@@ -1,0 +1,86 @@
+{
+  "trinity": {
+    "name": "Trinity College",
+    "location": "St. George Campus",
+    "description": "Trinity is known for its academic intensity and strong traditions.",
+    "avg_ratings":{
+    "Food": 8.2,
+    "Social Life": 7.8,
+    "Clubs": 8.3,
+    "Study Spaces": 7.5,
+    "Opportunities": 9.1
+    }
+  },
+  "victoria": {
+    "name": "Victoria College",
+    "location": "St. George Campus",
+    "description": "Victoria is known for liberal arts, historic buildings, and strong student community.",
+    "avg_ratings":{
+    "Food": 8.2,
+    "Social Life": 7.8,
+    "Clubs": 8.3,
+    "Study Spaces": 7.5,
+    "Opportunities": 9.1
+    }
+  },
+  "stmikes": {
+    "name": "St. Michael’s College",
+    "location": "St. George Campus",
+    "description": "Catholic heritage, humanities strength, and a literary tradition.",
+    "avg_ratings":{
+    "Food": 8.2,
+    "Social Life": 7.8,
+    "Clubs": 8.3,
+    "Study Spaces": 7.5,
+    "Opportunities": 9.1
+    }
+  },
+  "uc": {
+    "name": "University College",
+    "location": "St. George Campus",
+    "description": "One of the oldest colleges, known for its vibrant student life.",
+    "avg_ratings":{
+    "Food": 8.2,
+    "Social Life": 7.8,
+    "Clubs": 8.3,
+    "Study Spaces": 7.5,
+    "Opportunities": 9.1
+    }
+  },
+  "woods": {
+    "name": "Woodsworth College",
+    "location": "St. George Campus",
+    "description": "Modern, inclusive, known for professional programs and accessibility.",
+    "avg_ratings":{
+    "Food": 8.2,
+    "Social Life": 7.8,
+    "Clubs": 8.3,
+    "Study Spaces": 7.5,
+    "Opportunities": 9.1
+    }
+  },
+  "innis": {
+    "name": "Innis College",
+    "location": "St. George Campus",
+    "description": "Film and urban studies focus, small and tight-knit community.",
+    "avg_ratings":{
+    "Food": 8.2,
+    "Social Life": 7.8,
+    "Clubs": 8.3,
+    "Study Spaces": 7.5,
+    "Opportunities": 9.1
+    }
+  },
+  "new": {
+    "name": "New College",
+    "location": "St. George Campus",
+    "description": "Diverse, socially engaged, and strong science programs.",
+    "avg_ratings":{
+    "Food": 8.2,
+    "Social Life": 7.8,
+    "Clubs": 8.3,
+    "Study Spaces": 7.5,
+    "Opportunities": 9.1
+    }
+  }
+}

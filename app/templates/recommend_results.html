@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container rec-container">
+  <h1>🎯 Personalized College Matches</h1>
+  <p><strong>Your query:</strong> “{{ query }}”</p>
+
+  {% if preferences %}
+    <div class="pref-box">
+      <p><strong>Detected priorities:</strong></p>
+      <ul class="pref-list">
+        {% for category, weight in preferences %}
+          <li>
+            <span class="pref-chip">{{ category.capitalize() }}</span>
+            <span class="pref-weight">{{ (weight * 100) | round(1) }}%</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <p><em>No specific categories detected from your input.</em></p>
+  {% endif %}
+
+  <hr class="section-divider">
+
+  {% if recommendations %}
+    <div class="college-card-grid">
+      {% for college in recommendations[:3] %}
+        <div class="college-card">
+          <h2>
+            <a href="{{ url_for('main.college_profile', college_name=college.id) }}">{{ college.name }}</a>
+          </h2>
+
+          <div class="meta-row">
+            <div>
+              <strong>Average Rating:</strong> {{ college.avg_rating or "N/A" }}/10
+            </div>
+            <div>
+              <strong>Match Score:</strong> {{ college.match_score }}
+              <small class="subtle">(cat fit: {{ college.cat_score }}, tag bonus: +{{ college.tag_bonus }})</small>
+            </div>
+          </div>
+
+          {% if preferences %}
+            <div class="cat-match">
+              <strong>Category Match:</strong>
+              <ul class="cat-list">
+                {% for cat, _ in preferences %}
+                  <li>
+                    {{ cat.capitalize() }}:
+                    <span class="badge-rating">
+                      {{ college.category_ratings.get(cat) if college.category_ratings.get(cat) is not none else 'N/A' }}/10
+                    </span>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          {% if college.contributions %}
+            <details class="why-match">
+              <summary>Why this match?</summary>
+              <ul class="contrib-list">
+                {% for cat, w, val, pts in college.contributions %}
+                  <li>
+                    <span class="pref-chip small">{{ cat.capitalize() }}</span>
+                    rating <strong>{{ val }}</strong>/10 × weight <strong>{{ w }}</strong> → <strong>{{ pts }}</strong>
+                  </li>
+                {% endfor %}
+                <li>Tag bonus: <strong>+{{ college.tag_bonus }}</strong></li>
+              </ul>
+            </details>
+          {% endif %}
+
+          {# ===== Query-aligned tags (why_tags) ===== #}
+          {% if college.why_tags %}
+            <div class="hashtags" style="margin-top:8px;">
+              {% for tag in college.why_tags %}
+                <span class="hashtag query-tag">#{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {# ===== Generic hashtags, excluding duplicates from why_tags ===== #}
+          {% set generic_tags = (college.hashtags or []) %}
+          {% set why_set = (college.why_tags or []) | map('lower') | list %}
+          {% if generic_tags %}
+            <div class="hashtags" style="margin-top:6px;">
+              {% for tag in generic_tags %}
+                {% set tclean = (tag[1:] if tag.startswith('#') else tag)|lower %}
+                {% if tclean not in why_set %}
+                  <span class="hashtag">{{ tag }}</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No college recommendations available yet. Try modifying your search or reviewing more colleges!</p>
+  {% endif %}
+
+  <div class="back-row">
+    <a class="back-link" href="{{ url_for('main.home') }}">← Back to Home</a>
+  </div>
+</div>
+
+{% endblock %}

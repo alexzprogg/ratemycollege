@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <!-- HERO -->
+    <div class="hero" style="text-align: center; margin-top: 40px;">
+        <h1>Find Your Perfect UofT College</h1>
+        <p>Discover the best match based on real student insights and trends.</p>
+
+        <!-- NLP Search -->
+        <form method="POST" action="/recommend" style="margin-top: 30px;">
+            <label for="query"><strong>Tell us what you're looking for:</strong></label><br>
+            <input type="text" id="query" name="query" placeholder="e.g. I want strong academics and fun people" style="width: 60%; padding: 8px; margin-bottom: 10px;">
+            
+            <div class="suggested-categories" style="margin: 10px 0;">
+                <strong>Optional: Prioritize these aspects</strong><br>
+                {% set all_categories = ['food', 'social', 'clubs', 'study', 'opportunities'] %}
+                {% for cat in all_categories %}
+                    <label style="margin-right: 10px;">
+                        <input type="checkbox" name="priority_categories" value="{{ cat }}"> {{ cat.capitalize() }}
+                    </label>
+                {% endfor %}
+            </div>
+
+            <button type="submit" style="padding: 8px 16px;">Get Recommendation</button>
+        </form>
+    </div>
+
+    <hr style="margin: 50px 0;">
+
+    <!-- TRENDING HASHTAGS -->
+    <div class="trending">
+        <h2>🔥 Trending Now</h2>
+        {% if trending_tags %}
+            <div class="hashtag-row">
+                {% for tag in trending_tags %}
+                    <span class="hashtag">#{{ tag }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No trends available yet. Start reviewing to spark conversation!</p>
+        {% endif %}
+    </div>
+
+    <hr style="margin: 50px 0;">
+
+    <!-- TOP-RATED COLLEGES -->
+    <div class="top-rated">
+        <h2>⭐ Top-Rated Colleges</h2>
+        {% if top_colleges %}
+            <ol>
+                {% for college in top_colleges %}
+                    <li>
+                        <strong>{{ college.name }}</strong> — 
+                        {{ college.avg_rating }}/10
+                        {% if college.has_few_ratings %}
+                            <span style="color: red; font-style: italic;">(Based on few reviews)</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>No ratings yet. Be the first to review a college!</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

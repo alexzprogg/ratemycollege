@@ -1,0 +1,378 @@
+/* ------------------------------
+   Base / Layout
+------------------------------ */
+:root {
+  --bg: #f5f5f5;
+  --text: #333;
+  --muted: #666;
+  --border: #ddd;
+  --accent: #0f3d8c;
+  --chip-bg: #eef5ff;
+  --chip-text: #0f3d8c;
+  --hashtag-bg: #f0f0f0;
+  --hashtag-bg-hover: #e0e0e0;
+  --tag-bg: #d0e6ff;
+  --tag-text: #003366;
+  --btn: #007bff;
+  --btn-hover: #0056b3;
+  --card-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+}
+
+.container {
+  padding: 0 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h1, h2 { color: var(--text); margin: 0 0 10px; }
+.hero h1 { font-size: 2.6rem; }
+
+/* ------------------------------
+   Forms / Inputs
+------------------------------ */
+form select, form button {
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 600;
+}
+
+form input[type="text"],
+form textarea,
+form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+form textarea { resize: vertical; min-height: 100px; }
+
+button,
+form button[type="submit"] {
+  background: var(--btn);
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+button:hover,
+form button[type="submit"]:hover { background: var(--btn-hover); }
+
+/* ------------------------------
+   Lists / Cards
+------------------------------ */
+.container ul { list-style: none; padding-left: 0; }
+
+.container ul li {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: var(--card-shadow);
+}
+
+/* Card grid (used on recommendations & others) */
+.college-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.college-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  width: clamp(260px, 31%, 420px);
+  box-shadow: var(--card-shadow);
+}
+
+.college-card h2 { margin: 0 0 8px; }
+
+/* College tiles (Colleges list page) */
+.college-tile {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  height: 120px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.1rem;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+.college-tile:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+  color: var(--accent);
+}
+
+/* ------------------------------
+   Hashtags / Tags
+------------------------------ */
+.hashtag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.hashtags { margin-top: 10px; }
+
+.hashtag {
+  display: inline-block;
+  background: var(--hashtag-bg);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  margin: 4px 6px 0 0;
+}
+.hashtag:hover { background: var(--hashtag-bg-hover); cursor: pointer; }
+
+/* Suggested tags in modal */
+#tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+#tagContainer .tag {
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border-radius: 15px;
+  padding: 5px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+#tagContainer .tag:hover { background: #b3d9ff; }
+
+/* Optional input for custom tags */
+#customTagInput {
+  margin-top: 10px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 220px;
+  outline: none;
+}
+#customTagInput:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 4px rgba(79,70,229,0.35);
+}
+
+/* Small “×” on tags (only if you render it) */
+.tag::after {
+  content: " ×";
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+/* ------------------------------
+   Modal
+------------------------------ */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background: #fff;
+  margin: 5% auto;
+  padding: 30px 40px;
+  border: 1px solid var(--border);
+  width: 60%;
+  max-width: 720px;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 28px;
+  color: #999;
+  cursor: pointer;
+}
+.close:hover { color: #333; }
+
+/* Category checkboxes in modal */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.checkbox-group input[type="checkbox"] { margin-right: 6px; }
+
+/* ------------------------------
+   Recommendations Page (rec)
+------------------------------ */
+.rec-container { margin-top: 40px; }
+
+.pref-box {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0 6px;
+}
+
+.pref-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin: 8px 0 0;
+}
+
+.pref-chip {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.pref-chip.small { padding: 4px 8px; font-size: 0.85rem; }
+
+.pref-weight { margin-left: 6px; color: var(--muted); font-size: 0.9rem; }
+
+.section-divider {
+  margin: 30px 0;
+  border: 0;
+  border-top: 1px solid #e7e7e7;
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.subtle { color: var(--muted); margin-left: 6px; }
+
+.cat-match { margin-top: 10px; }
+
+.cat-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 6px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 6px 14px;
+}
+
+.badge-rating {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #f4f6f8;
+  margin-left: 6px;
+}
+
+.why-match { margin-top: 10px; }
+.why-match summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+
+.contrib-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 8px;
+  display: grid;
+  gap: 6px;
+}
+
+.back-row { margin-top: 20px; }
+.back-link { text-decoration: none; color: var(--accent); }
+
+/* ------------------------------
+   Warnings / Notices
+------------------------------ */
+.rating-warning {
+  background: #fff9e6;
+  border: 1px solid #f0d98c;
+  color: #775a00;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 14px 0;
+  font-size: 0.95rem;
+}
+
+/* --- Query-aligned (why_tags) styles --- */
+.why-tags {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed #c9d8ff;
+  background: #f6f9ff;
+  border-radius: 10px;
+}
+
+.why-label {
+  display: inline-block;
+  font-weight: 700;
+  color: #0b3a8f;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.why-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.why-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e8f0ff;     /* lighter than your regular hashtag pills */
+  color: #0b3a8f;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid #c9d8ff;
+}
+
+/* subtle difference from generic .hashtag to avoid confusion */
+.hashtag { /* existing generic tag style; keep as-is or slightly dim */
+  opacity: 0.9;
+}

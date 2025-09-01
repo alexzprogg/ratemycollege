@@ -1,0 +1,15 @@
+# Python cache / compiled
+__pycache__/
+*.pyc
+
+# Virtual env & secrets
+venv/
+.env
+.env.*
+
+# Local DB
+instance/database.db
+
+# Editor/OS
+.vscode/
+*.log
