@@ -15,7 +15,7 @@ A Flask-based web app that helps University of Toronto students **compare colleg
 - **Auth-gated contributions (✅ optional)**: login/registration before submitting reviews.
 - **Data quality flags**: warn when a college has limited data (e.g., “Based on few reviews”).
 
-# Project Structure
+## 🗂 Project Structure
 ratemycollege/
 ├─ app/
 │ ├─ static/ # CSS/JS/assets
