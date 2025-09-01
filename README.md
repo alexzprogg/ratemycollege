@@ -19,7 +19,7 @@ A Flask-based web app that helps University of Toronto students **compare colleg
 ---
 
 ## 🗂 Project Structure
-
+```
 ratemycollege/
 ├─ app/
 │ ├─ static/ # CSS/JS/assets
@@ -36,7 +36,7 @@ ratemycollege/
 ├─ requirements.txt # Python deps
 ├─ scrape_reddit.py # experimental data collection (optional)
 └─ README.md
-
+```
 
 ---
 
