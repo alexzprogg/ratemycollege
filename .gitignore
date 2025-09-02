@@ -1,15 +1,24 @@
-# Python cache / compiled
-__pycache__/
-*.pyc
-
-# Virtual env & secrets
-venv/
+# Env & secrets
+.venv/
 .env
 .env.*
+
+# Python junk
+__pycache__/
+*.pyc
 
 # Local DB
 instance/database.db
 
-# Editor/OS
-.vscode/
-*.log
+# Heavy ML/model stuff (common offenders)
+*.pt
+*.pth
+*.bin
+*.h5
+*.onnx
+*.tar
+*.tar.gz
+*.zip
+.cache/
+models/
+**/models/**
