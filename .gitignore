@@ -1,24 +1,20 @@
-# Env & secrets
+# virtual envs
 .venv/
-.env
-.env.*
+venv/
 
-# Python junk
+# secrets / runtime
+.env
+instance/database.db
+
+# python junk
 __pycache__/
 *.pyc
 
-# Local DB
-instance/database.db
-
-# Heavy ML/model stuff (common offenders)
+# big ML stuff (just in case)
 *.pt
 *.pth
 *.bin
-*.h5
 *.onnx
-*.tar
-*.tar.gz
-*.zip
-.cache/
 models/
 **/models/**
+.cache/
