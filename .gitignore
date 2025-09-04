@@ -18,3 +18,9 @@ __pycache__/
 models/
 **/models/**
 .cache/
+
+# Frontend (Next.js) ignores in monorepo
+/ratemycollege-ui/node_modules/
+/ratemycollege-ui/.next/
+/ratemycollege-ui/out/
+/ratemycollege-ui/.env*
